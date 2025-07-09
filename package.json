@@ -1,0 +1,14 @@
+{
+    "name": "blog-nest",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "client": "pnpm run -F blog-client dev",
+        "server": "pnpm run -F blog-server start:dev"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "packageManager": "pnpm@10.10.0"
+}
