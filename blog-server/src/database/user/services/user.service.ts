@@ -8,6 +8,9 @@ export class UserService {
     ) {
 
     }
+    queryAccount() {
+        return this.userRepo.getUserList()
+    }
 
     async verifyUser(user: { account: string, password: string }) {
         const findUser = await this.userRepo.getPasswordByAccount(user.account)

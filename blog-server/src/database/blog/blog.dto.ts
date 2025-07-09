@@ -1,8 +1,10 @@
-export class Blog {
-    uuid!: string
-    account: string
-    password: string
-    token: number | null
-    createTime: string
-    updateTime: string
+export interface Blog {
+    content: string,
+    title: string,
+    author: string,
+    id: string,
+    updateTime: string,
+    createTime?: string,
+    isPreviewShow: string
+    author_uuid: string
 }

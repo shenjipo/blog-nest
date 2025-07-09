@@ -25,5 +25,5 @@ export class BlogEntity {
     isPreviewShow: string | null;
 
     @Column("varchar", { name: "author_uuid", length: 255 })
-    authorUuid: string;
+    author_uuid: string;
 }
