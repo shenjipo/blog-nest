@@ -85,9 +85,8 @@ export class BlogRepository {
             }
         }))
 
-
+        queryBuilder.orderBy('CAST(updateTime AS SIGNED)', 'DESC')
         const skip = (page.current - 1) * page.size
-
         const [data, total] = await queryBuilder.skip(skip).take(page.size).getManyAndCount()
 
         return {

@@ -5,10 +5,8 @@ import {
     Get,
     Param,
     Res,
-    StreamableFile,
     UseInterceptors,
 } from '@nestjs/common';
-import { createReadStream } from 'fs';
 import { UploadService } from './file.service';
 import { PublicApi } from 'src/auth/decorators/publick.decorator';
 import { FileInterceptor } from '@nestjs/platform-express';
@@ -20,9 +18,9 @@ export class UploadController {
     constructor(private readonly uploadService: UploadService) { }
 
     @Post('uploadImg')
-    @UseInterceptors(FileInterceptor('file'))
+    @UseInterceptors(FileInterceptor('file[]'))
     uploadFile(@UploadedFile() file: Express.Multer.File) {
-        console.log(file, 'file')
+        console.log(file)
         return this.uploadService.uploadFile(file);
     }
 

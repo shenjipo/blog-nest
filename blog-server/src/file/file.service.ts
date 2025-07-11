@@ -17,7 +17,7 @@ export class UploadService {
         // 这里可以添加额外的处理逻辑，如保存到数据库等
         return {
             originalname: file.originalname,
-            filename: file.filename,
+            url: file.filename,
             size: file.size,
             mimetype: file.mimetype,
             path: file.path,
