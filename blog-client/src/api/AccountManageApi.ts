@@ -1,27 +1,28 @@
+import { AxiosResponse } from "axios"
 import { http } from "./axios"
 import { Response } from './login'
 import { Account } from "@/model/Account"
+import { Page } from "@/model/Common"
 /* 登录接口参数类型 */
 
 interface AddAccount {
-    username: string,
+    account: string,
     password: string,
     createTime?: string
 }
 
 export class AccountManageApi {
     // 查询所有账号
-    static queryAccountList(): Promise<Array<Account>> {
-        return http.post('/queryAccount').then(res => {
-            if (Array.isArray(res) && res.length) {
-                res.forEach((item) => {
-                    item.username = item.account
-                    delete item.account
-                })
-            }
+    static queryAccountList(val: { current: number, size: number, query?: string }) {
+        return http.post('/queryAccount', val).then((res: Page<Account>) => {
             return res
-        }).catch((err: any) => {
-            return Promise.reject(err)
+        })
+    }
+
+    // 根据uuid查询账号
+    static getAccountByUuid(uuid: string) {
+        return http.get('/getAccountByUuid', { params: { uuid } }).then((res: Account) => {
+            return res
         })
     }
 
@@ -32,8 +33,6 @@ export class AccountManageApi {
         return http.post('/addAccount', params).then(res => {
 
             return res
-        }).catch((err: any) => {
-            return Promise.reject(err)
         })
     }
 
@@ -41,8 +40,6 @@ export class AccountManageApi {
     static deleteAccount(params: { uuid: string }): Promise<null> {
         return http.post('/deleteAccount', params).then(res => {
             return res
-        }).catch((err: any) => {
-            return Promise.reject(err)
         })
     }
 
@@ -52,8 +49,6 @@ export class AccountManageApi {
 
         return http.post('/editAccount', params).then(res => {
             return res
-        }).catch((err: any) => {
-            return Promise.reject(err)
         })
     }
 }

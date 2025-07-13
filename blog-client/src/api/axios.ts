@@ -32,7 +32,7 @@ service.interceptors.request.use((config: InternalAxiosRequestConfig) => {
 
     return config
 }, (error: AxiosError) => {
- 
+
     ElMessage.error(error.message);
     return Promise.reject(error)
 })
@@ -40,7 +40,7 @@ service.interceptors.request.use((config: InternalAxiosRequestConfig) => {
 /* 响应拦截器 */
 service.interceptors.response.use((response: AxiosResponse) => {
     const { code, msg, data } = response.data
-   
+
 
     // 根据自定义错误码判断请求是否成功
     if (code === 200) {
@@ -55,7 +55,7 @@ service.interceptors.response.use((response: AxiosResponse) => {
         return Promise.reject({ message: msg })
     }
 }, (error: AxiosError) => {
-   
+
     // 处理 HTTP 网络错误
     let message = ''
     // HTTP 状态码
@@ -84,7 +84,7 @@ service.interceptors.response.use((response: AxiosResponse) => {
 
 /* 导出封装的请求方法 */
 export const http = {
-    get<T = any>(url: string, config?: InternalAxiosRequestConfig): Promise<T> {
+    get<T = any>(url: string, config?: AxiosRequestConfig): Promise<T> {
         return service.get(url, config)
     },
 

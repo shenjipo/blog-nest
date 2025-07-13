@@ -7,7 +7,7 @@
             <el-table :data="tableData">
 
                 <el-table-column type="index" label="id"></el-table-column>
-                <el-table-column label="用户名" property="username"></el-table-column>
+                <el-table-column label="用户名" property="account"></el-table-column>
                 <el-table-column label="密码" property="password"></el-table-column>
                 <el-table-column label="创建时间">
                     <template #default="{ row }">
@@ -58,7 +58,7 @@ const store = useStore()
 // 数据
 const router = useRouter()
 const tableData = ref<Array<Account>>([{
-    username: 'wangxing',
+    account: 'wangxing',
     password: 'wangxing',
     id: 1,
     uuid: 'wangxing',
@@ -67,11 +67,12 @@ const tableData = ref<Array<Account>>([{
 }])
 let allTableData: Array<Account> = []
 const page = ref<Page>(new Page())
+
 // 生命周期
 onMounted(() => {
-
     queryAccountList()
 })
+
 // 方法
 const handleAddAccount = () => {
     router.push({
@@ -83,17 +84,14 @@ const handleAddAccount = () => {
 }
 
 const queryAccountList = () => {
-    AccountManageApi.queryAccountList().then(res => {
-        tableData.value = res
-        if (Array.isArray(res)) {
-            page.value.total = res.length
-            allTableData = res
-            tableData.value = allTableData.slice(page.value.current * page.value.size, page.value.current * page.value.size + page.value.size)
-        } else {
-            page.value.total = 0
-            allTableData = []
-            tableData.value = []
-        }
+    AccountManageApi.queryAccountList({
+        current: page.value.current,
+        size: page.value.size,
+        query: '',
+    }).then(res => {
+        console.log(res)
+        tableData.value = res.data || []
+        page.value.total = res.total
     }).catch(err => {
         ElMessage.error(err?.message || '查询账号失败！')
     })
@@ -102,11 +100,8 @@ const queryAccountList = () => {
 const handleEditAccount = (par: Account) => {
     router.push({
         name: 'AccountEdit',
-        params: {
-            account: JSON.stringify({
-                uuid: par.uuid,
-                username: par.username
-            })
+        query: {
+            uuid: par.uuid
         }
     })
 }

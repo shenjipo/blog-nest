@@ -10,3 +10,5 @@ declare namespace NodeJS {
         MYSQL_DATABASE: string
     }
 }
+
+type Nullable<T> = T | null | undefined 

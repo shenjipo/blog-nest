@@ -2,7 +2,7 @@ export class UserDto {
     uuid!: string
     account: string
     password: string
-    token: number | null
+    token: Nullable<string>
     createTime: string
     updateTime: string
 }

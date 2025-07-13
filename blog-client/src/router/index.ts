@@ -8,7 +8,7 @@ const routes: Array<any> = [
         children: [
             { name: 'BlogManage', path: "/MainPage/BlogManage", component: () => import("../pages/BlogManage/BlogManage.vue") },
             { name: 'AccountManage', path: "/MainPage/AccountManage", component: () => import("../pages/AccountManage/AccountManage.vue") },
-            { name: 'AccountEdit', path: "/MainPage/AccountEdit/:account", component: () => import("../pages/AccountManage/AccountEdit.vue") },
+            { name: 'AccountEdit', path: "/MainPage/AccountEdit", component: () => import("../pages/AccountManage/AccountEdit.vue") },
 
             { name: 'BlogUpdate', path: "/MainPage/BlogUpdate/:id", component: () => import("../pages/BlogManage/BlogUpdate.vue") },
         ]

@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { UserRepository } from '../repositories/user.repository';
+import { PaginationDto } from 'src/database/pagination.dto';
 
 @Injectable()
 export class UserService {
@@ -8,8 +9,25 @@ export class UserService {
     ) {
 
     }
-    queryAccount() {
-        return this.userRepo.getUserList()
+
+    async getUserList(val: PaginationDto<{ query: string }>) {
+        return this.userRepo.getUserList(val)
+    }
+
+    async getAccountByUuid(uuid: string) {
+        return this.userRepo.getAccountByUuid(uuid)
+    }
+
+    async addAccount(val: { account: string, password: string, createTime: string }) {
+        return this.userRepo.addAccount(val)
+    }
+
+    async editAccount(val: { uuid: string, password: string, updateTime: string }) {
+        return this.userRepo.editAccount(val)
+    }
+
+    async deleteAccount(uuid: string) {
+        return this.userRepo.deleteAccount(uuid)
     }
 
     async verifyUser(user: { account: string, password: string }) {
@@ -21,11 +39,5 @@ export class UserService {
             return findUser
         }
         return null
-    }
-
-    async getUserList() {
-        const a = await this.userRepo.getUserList()
-
-        return a
     }
 }

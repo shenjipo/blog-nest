@@ -2,8 +2,8 @@
     <div class="box">
         <div class="form-content">
             <el-form ref="formRef" :model="form" :style="{ width: '600px' }" @submit="handleSubmit" :rules="rules">
-                <el-form-item prop="username" tooltip="请输入用户名" label="用户名">
-                    <el-input v-model="form.username" placeholder="请输入用户名..." />
+                <el-form-item prop="account" tooltip="请输入用户名" label="用户名">
+                    <el-input v-model="form.account" placeholder="请输入用户名..." />
                 </el-form-item>
                 <el-form-item prop="password" label="密码">
                     <el-input v-model="form.password" placeholder="请输入密码..." />
@@ -42,7 +42,7 @@ interface Form extends Account {
 }
 const rules = computed(() => {
     return {
-        username: [FormRules.Required()],
+        account: [FormRules.Required()],
         password: [FormRules.Required()],
         copyPassword: [FormRules.Required()],
     }
@@ -59,7 +59,7 @@ const form3Rules = [
     FormRules.Required()
 ]
 const form = ref<Form>({
-    username: '',
+    account: '',
     password: '',
     createTime: '',
     updateTime: '',
@@ -68,19 +68,25 @@ const form = ref<Form>({
     copyPassword: ''
 })
 const formRef = ref<InstanceType<typeof ElForm>>(null)
-let isEdit = false
+const isEdit = ref(false)
 
 onMounted(() => {
-    let account: any = route.params.account as string
-
-    if (account !== 'noaccount') {
-        isEdit = true
-        account = JSON.parse(account)
-        form.value.uuid = account.uuid
-        form.value.username = account.username
-
+    const uuid = route.query.uuid
+    if (uuid) {
+        isEdit.value = true
+        getAccount(uuid as string)
     }
 })
+
+const getAccount = (uuid: string) => {
+    AccountManageApi.getAccountByUuid(uuid).then(res => {
+        form.value.password = res.password
+        form.value.account = res.account
+        form.value.uuid = res.uuid
+    }).catch(err => {
+        ElMessage.error(err?.message || '查询账号异常！')
+    })
+}
 
 const handleSubmit = () => {
     // 先校验表单
@@ -88,13 +94,13 @@ const handleSubmit = () => {
         if (!flag) {
             return
         }
-    
+
         if (form.value.password !== form.value.copyPassword) {
             ElMessage.warning('两次输入密码不一致!')
             return
         }
         // 二次弹窗确认
-        isEdit ? editAccount() : addAccount()
+        isEdit.value ? editAccount() : addAccount()
     })
 
 
@@ -114,14 +120,14 @@ const editAccount = () => {
 }
 const addAccount = () => {
     let params = {
-        username: form.value.username,
+        account: form.value.account,
         password: form.value.password,
     }
     AccountManageApi.addAccount(params).then(res => {
-        ElMessage.success('添加账号成功！')
+        ElMessage.success('修改账号成功！')
         router.push('/MainPage/AccountManage')
     }).catch(err => {
-        ElMessage.error(err?.message || '添加账号失败！')
+        ElMessage.error(err?.message || '修改账号失败！')
     })
 }
 </script>
