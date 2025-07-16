@@ -22,7 +22,7 @@
 <script setup lang="ts">
 import { reactive, ref } from 'vue';
 import { FormRules } from '@/utils/ComponentUtils'
-import { Api } from '@/api/login';
+import { LoginApi } from '@/api/LoginApi';
 import { ElMessage } from 'el-cool';
 import { useRouter, useRoute } from 'vue-router'
 import { useStore } from '@/store';
@@ -43,7 +43,7 @@ const handleFocus = () => {
     inputRef.value.focus()
 }
 const handleSubmit = () => {
-   
+
     formRef.value.validate((flag) => {
         if (!flag) {
             return
@@ -54,7 +54,7 @@ const handleSubmit = () => {
             account: form.account,
             password: form.password,
         }
-        Api.login(params).then(res => {
+        LoginApi.login(params).then(res => {
             store.userStore.setUser(res.user)
 
             localStorage.setItem('token', res.token)

@@ -89,7 +89,6 @@ const queryAccountList = () => {
         size: page.value.size,
         query: '',
     }).then(res => {
-        console.log(res)
         tableData.value = res.data || []
         page.value.total = res.total
     }).catch(err => {

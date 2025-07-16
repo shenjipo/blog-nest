@@ -6,7 +6,10 @@
     "scripts": {
         "dev": "pnpm run -F blog-client dev && pnpm run -F blog-server start:dev",
         "client": "pnpm run -F blog-client dev",
-        "server": "pnpm run -F blog-server start:dev"
+        "server": "pnpm run -F blog-server start:dev",
+        "build-client": "pnpm -F blog-client build:docker",
+        "build-server": "pnpm -F blog-server build",
+        "build": "pnpm -F blog-server build && pnpm -F blog-client build:docker"
     },
     "keywords": [],
     "author": "",

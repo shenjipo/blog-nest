@@ -28,9 +28,9 @@
                 </div>
                 <div class="header-right">
                     <el-dropdown @select="handleSelect">
-                        <el-avatar :style="{ backgroundColor: '#14a9f8' }">{{ store.userStore.getUser.username.slice(0,
-                            4)
-                            }}</el-avatar>
+                        <el-avatar :style="{ backgroundColor: '#14a9f8' }">
+                            {{ store.userStore.getUser.account.slice(0, 4) }}
+                        </el-avatar>
                         <template #dropdown>
                             <el-dropdown-menu>
                                 <el-dropdown-item command="value">退出登录1</el-dropdown-item>

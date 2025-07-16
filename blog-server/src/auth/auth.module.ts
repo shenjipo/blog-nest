@@ -13,7 +13,7 @@ import { AuthGuard } from './auth.guard';
     imports: [
         JwtModule.register({
             secret: jwtSecert, // 建议从环境变量读取
-            signOptions: { expiresIn: '1h' }, // Token 过期时间
+            signOptions: { expiresIn: '8h' }, // Token 过期时间
         }),
         UserModule
     ],

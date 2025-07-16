@@ -1,7 +1,8 @@
 import { AxiosResponse } from "axios"
 import { http } from "./axios"
-import { Response } from './login'
+import { Response } from './LoginApi'
 import { Account } from "@/model/Account"
+
 import { Page } from "@/model/Common"
 /* 登录接口参数类型 */
 

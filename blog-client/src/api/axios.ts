@@ -63,6 +63,9 @@ service.interceptors.response.use((response: AxiosResponse) => {
     switch (status) {
         case 401:
             message = '401 token 失效，请重新登录'
+            router.push({
+                name: 'login'
+            })
             // 这里可以触发退出的 action
             break;
         case 403:

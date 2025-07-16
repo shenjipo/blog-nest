@@ -5,7 +5,7 @@ import { Account } from '@/model/Account'
 export const useUserStore = defineStore('user', () => {
 
     let user = ref<Account>({
-        username: '',
+        account: '',
         password: '',
         uuid: '',
         createTime: '',

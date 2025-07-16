@@ -23,7 +23,7 @@
 <script setup lang="ts">
 import { reactive, ref, onMounted, computed } from 'vue';
 import { FormRules } from '@/utils/ComponentUtils'
-import { Api } from '@/api/login';
+import { Api } from '@/api/LoginApi';
 import { ElMessage } from 'el-cool';
 import { useRouter, useRoute } from 'vue-router'
 import { ArticleManageApi } from '@/api/ArticleManageApi'
